@@ -4,7 +4,7 @@ import App from "./App.vue"
 import router from "./router"
 import store from "./store"
 import { setupStore } from "./store"
-import api from "./service"
+// import api from "./service"
 
 import "normalize.css"
 import "./assets/css/index.less"
@@ -19,11 +19,11 @@ app.mount("#app")
 //   url: "aaa"
 // })
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+// interface DataType {
+//   data: any
+//   returnCode: string
+//   success: boolean
+// }
 
 // api
 //   .request<DataType>({
