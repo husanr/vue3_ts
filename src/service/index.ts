@@ -1,7 +1,7 @@
 // service统一出口
 import APIRequest from "./request"
 import { BASE_URL, TIME_OUT } from "./request/config"
-
+import localCache from "@/utils/cache"
 // 每个实例可以创建不同的拦截器
 const apiRequest = new APIRequest({
   baseURL: BASE_URL,
@@ -9,6 +9,13 @@ const apiRequest = new APIRequest({
   interceptors: {
     requestInterceptor: (config) => {
       console.log("请求成功的拦截")
+      // token拦截
+      const token = localCache.getCache("token")
+      if (token) {
+        if (config && config?.headers) {
+          config.headers.Authorization = `Bearer ${token}`
+        }
+      }
       return config
     },
     requestInterceptorCatch: (err) => {
