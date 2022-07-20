@@ -18,13 +18,21 @@
           <!-- 二级菜单可以展开的 -->
           <el-sub-menu :index="item.id + ''">
             <template #title>
-              <i v-if="item.icon" :class="item.icon"></i>
+              <el-icon v-if="item.icon">
+                <component :is="item.icon.split('-').splice(2).join('-')">
+                </component>
+              </el-icon>
               <span>{{ item.name }}</span>
             </template>
             <!-- 遍历里边的 -->
             <template v-for="subitem in item.children" :key="subitem.id">
               <el-menu-item :index="subitem.id + ''">
-                <i v-if="subitem.icon" :class="subitem.icon"></i>
+                <el-icon v-if="subitem.icon">
+                  <component
+                    :is="subitem.icon.split('-').splice(0, 2).join('-')"
+                  >
+                  </component>
+                </el-icon>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
             </template>
@@ -33,7 +41,10 @@
         <!-- 一级菜单 -->
         <template v-else-if="item.type === 2">
           <el-menu-item>
-            <i v-if="item.icon" :class="item.icon"></i>
+            <el-icon v-if="item.icon">
+              <component :is="item.icon.split('-').splice(0, 2).join('-')">
+              </component>
+            </el-icon>
             <span>{{ item.name }}</span>
           </el-menu-item>
         </template>
