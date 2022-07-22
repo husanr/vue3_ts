@@ -26,7 +26,10 @@
             </template>
             <!-- 遍历里边的 -->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id + ''">
+              <el-menu-item
+                :index="subitem.id + ''"
+                @click="handleMenuItemClick(subitem)"
+              >
                 <el-icon v-if="subitem.icon">
                   <component
                     :is="subitem.icon.split('-').splice(0, 2).join('-')"
@@ -56,7 +59,7 @@
 <script>
 import { defineComponent, computed } from "vue"
 import { useStore } from "@/store"
-
+import { useRouter } from "vue-router"
 export default defineComponent({
   props: {
     collapse: {
@@ -67,8 +70,15 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const userMenus = computed(() => store.state.login.userMenus)
+    const router = useRouter()
+    const handleMenuItemClick = (item) => {
+      router.push({
+        path: item.url ?? "/notfound"
+      })
+    }
     return {
-      userMenus
+      userMenus,
+      handleMenuItemClick
     }
   }
 })
