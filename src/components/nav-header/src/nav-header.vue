@@ -15,7 +15,7 @@
 import { defineComponent, ref, computed } from "vue"
 import { Fold, Expand } from "@element-plus/icons-vue"
 import UserInfo from "./user-info.vue"
-import ComBreadcrumb, { IBreadcrumb } from "@/base-ui/breadcrumb"
+import ComBreadcrumb from "@/base-ui/breadcrumb"
 import { pathMapToBreadcrumbs } from "@/utils/map-menus"
 import { useStore } from "@/store"
 import { useRoute } from "vue-router"
