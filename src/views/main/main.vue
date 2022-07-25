@@ -8,7 +8,11 @@
         <el-header class="page-header">
           <nav-header @foldChange="handleFoldChange" />
         </el-header>
-        <el-main class="page-content">Main</el-main>
+        <el-main class="page-content">
+          <el-card class="box-card">
+            <router-view />
+          </el-card>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -53,6 +57,9 @@ export default defineComponent({
 
 .page-content {
   height: calc(100% - 48px);
+  .box-card {
+    border: none;
+  }
 }
 
 .el-header,
