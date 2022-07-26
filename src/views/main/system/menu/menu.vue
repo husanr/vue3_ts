@@ -8,7 +8,7 @@
 import { defineComponent } from "vue"
 
 export default defineComponent({
-  name: "menu",
+  name: "manage-menu",
   setup() {
     return {}
   }

@@ -52,9 +52,7 @@ class APIRequest {
 
     this.instance.interceptors.response.use(
       (res) => {
-        setTimeout(() => {
-          this.loading?.close()
-        }, 2000)
+        this.loading?.close()
         const data = res.data
         if (data.returnCode === "-1001") {
           console.log("响应失败结果的msg")
@@ -103,19 +101,19 @@ class APIRequest {
     })
   }
 
-  get<T>(config: APIRequestConfig<T>): Promise<T> {
+  get<T = any>(config: APIRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "GET" })
   }
 
-  post<T>(config: APIRequestConfig<T>): Promise<T> {
+  post<T = any>(config: APIRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "POST" })
   }
 
-  delete<T>(config: APIRequestConfig<T>): Promise<T> {
+  delete<T = any>(config: APIRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "delete" })
   }
 
-  patch<T>(config: APIRequestConfig<T>): Promise<T> {
+  patch<T = any>(config: APIRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: "patch" })
   }
 }
