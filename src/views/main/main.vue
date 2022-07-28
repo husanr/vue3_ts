@@ -9,9 +9,7 @@
           <nav-header @foldChange="handleFoldChange" />
         </el-header>
         <el-main class="page-content">
-          <el-card class="box-card">
-            <router-view />
-          </el-card>
+          <router-view />
         </el-main>
       </el-container>
     </el-container>

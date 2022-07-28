@@ -6,7 +6,7 @@
       </template>
       <template #footer>
         <div class="handle_btn">
-          <el-button type="primary">重置</el-button>
+          <el-button type="primary" @click="handleReset">重置</el-button>
           <el-button type="primary">搜索</el-button>
         </div>
       </template>
@@ -28,16 +28,25 @@ export default defineComponent({
       required: true
     }
   },
-  setup() {
-    const formData = ref({
-      id: "",
-      name: "",
-      password: "",
-      sport: "",
-      createTime: ""
-    })
+  setup(props) {
+    // 双向绑定的数据 由配置决定
+    const formItems = props.searchFormConfig?.formItems ?? []
+    const formOriginData: any = {}
+    for (const item of formItems) {
+      formOriginData[item.field] = ""
+    }
+    const formData = ref(formOriginData)
+
+    // 重置
+    const handleReset = () => {
+      // formData.value = formOriginData
+      for (const key in formOriginData) {
+        formData.value[key] = formOriginData[key]
+      }
+    }
     return {
-      formData
+      formData,
+      handleReset
     }
   }
 })

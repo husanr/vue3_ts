@@ -6,7 +6,10 @@ import store from "./store"
 import { setupStore } from "./store"
 // import api from "./service"
 
+import { globalRegister } from "./global"
+import ElementPlus from "element-plus"
 import * as ElementPlusIconsVue from "@element-plus/icons-vue"
+import zhCn from "element-plus/es/locale/lang/zh-cn"
 
 import "normalize.css"
 import "./assets/css/index.less"
@@ -17,9 +20,14 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)
 }
 
+app.use(ElementPlus, {
+  locale: zhCn
+})
+
 setupStore()
 app.use(router)
 app.use(store)
+app.use(globalRegister)
 app.mount("#app")
 
 // api.get({
