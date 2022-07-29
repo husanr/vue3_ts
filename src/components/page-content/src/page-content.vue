@@ -2,8 +2,10 @@
   <div>
     <ComTable
       :listData="dataList"
+      :totalCount="totalCount"
       @selectionChange="selectionChange"
       v-bind="contentTableConfig"
+      v-model:page="pageInfo"
     >
       <!-- header中的插槽 -->
       <template #handler>
@@ -37,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue"
+import { defineComponent, computed, ref, watch } from "vue"
 import { useStore } from "@/store"
 
 import ComTable from "@/base-ui/table"
@@ -58,13 +60,22 @@ export default defineComponent({
   },
   setup(props) {
     const store = useStore()
-    store.dispatch("system/getPageListAction", {
-      pageName: props.pageName,
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
+    // 双向绑定pageinfo
+    const pageInfo = ref({ currentPage: 0, pageSize: 10 })
+    watch(pageInfo, () => getPageData())
+    // 发送网络请求
+    const getPageData = (queryInfo: any = {}) => {
+      store.dispatch("system/getPageListAction", {
+        pageName: props.pageName,
+        queryInfo: {
+          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          size: pageInfo.value.pageSize,
+          ...queryInfo
+        }
+      })
+    }
+
+    getPageData()
 
     const dataList = computed(() =>
       store.getters["system/pageListData"](props.pageName)
@@ -76,10 +87,13 @@ export default defineComponent({
     const selectionChange = (value: any) => {
       console.log(value)
     }
+
     return {
       dataList,
       totalCount,
-      selectionChange
+      selectionChange,
+      getPageData,
+      pageInfo
     }
   }
 })

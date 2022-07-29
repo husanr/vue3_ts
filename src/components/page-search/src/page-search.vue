@@ -7,7 +7,7 @@
       <template #footer>
         <div class="handle_btn">
           <el-button type="primary" @click="handleReset">重置</el-button>
-          <el-button type="primary">搜索</el-button>
+          <el-button type="primary" @click="handleSearch">搜索</el-button>
         </div>
       </template>
     </ComForm>
@@ -28,7 +28,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ["resetBtnClick", "searchBtnClick"],
+  setup(props, { emit }) {
     // 双向绑定的数据 由配置决定
     const formItems = props.searchFormConfig?.formItems ?? []
     const formOriginData: any = {}
@@ -43,10 +44,17 @@ export default defineComponent({
       for (const key in formOriginData) {
         formData.value[key] = formOriginData[key]
       }
+      emit("resetBtnClick")
+    }
+
+    // 搜索
+    const handleSearch = () => {
+      emit("searchBtnClick", formData.value)
     }
     return {
       formData,
-      handleReset
+      handleReset,
+      handleSearch
     }
   }
 })
