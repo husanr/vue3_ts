@@ -4,7 +4,11 @@
       <PageSearch :searchFormConfig="searchFormConfig"></PageSearch>
     </el-card>
     <el-card class="box-card">
-      <PageContent :contentTableConfig="contentTableConfig" pageName="goods">
+      <PageContent
+        :contentTableConfig="contentTableConfig"
+        pageName="goods"
+        handleBtnText="新建商品"
+      >
         <template #image="scope">
           <el-image
             style="width: 80px; height: 80px"

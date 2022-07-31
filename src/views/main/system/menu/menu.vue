@@ -4,6 +4,7 @@
       <PageContent
         :contentTableConfig="contentTableConfig"
         pageName="menu"
+        handleBtnText="新建菜单"
       ></PageContent>
     </el-card>
   </div>
