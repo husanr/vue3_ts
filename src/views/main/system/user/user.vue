@@ -49,9 +49,10 @@ export default defineComponent({
     PageModal
   },
   setup() {
+    // 从hook引入方法
     const [pageContentRef, handleResetClick, handleSearchClick] =
       usePageSearch()
-
+    // 给hook函数传回调 达到配置效果
     const newCallBack = () => {
       const passwordItem = modalFormConfig.formItems.find(
         (item) => item.field === "password"
