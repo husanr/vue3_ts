@@ -55,15 +55,16 @@ export default defineComponent({
     MapEchart
   },
   setup() {
+    // 获取数据
     const store = useStore()
     store.dispatch("dashboard/getDashboardDataAction")
-
+    // 拿分类商品数量(饼图)数据
     const categoryGoodsCount = computed(() => {
       return store.state.dashboard.categoryGoodsCount.map((item: any) => {
         return { name: item.name, value: item.goodsCount }
       })
     })
-
+    // 拿分类商品的销量数据
     const categoryGoodsSale = computed(() => {
       const xLabels: string[] = []
       const values: any[] = []
@@ -74,6 +75,7 @@ export default defineComponent({
       }
       return { xLabels, values }
     })
+    // 拿分类商品的收藏数据
     const categoryGoodsFavor = computed(() => {
       const xLabels: string[] = []
       const values: any[] = []
@@ -84,7 +86,7 @@ export default defineComponent({
       }
       return { xLabels, values }
     })
-
+    // 不同城市商品销量
     const addressGoodsSale = computed(() => {
       return store.state.dashboard.addressGoodsSale.map((item: any) => {
         return { name: item.address, value: item.count }
